@@ -1,10 +1,11 @@
-import requests
-from bs4 import BeautifulSoup
 import re
 import urllib.parse
 import os
-from tkinter import Tk, Label, StringVar, ttk, Button, Entry, Text
+import requests
 import tkinter as tk
+from bs4 import BeautifulSoup
+from tkinter import Tk, Label, StringVar, ttk, Button, Entry, Text
+
 baseurl = "https://www.luogu.com.cn/problem/P"
 savePath = "D:\mid python\\"
 blogurl = "https://www.luogu.com.cn/blog/_post/"
@@ -78,7 +79,6 @@ def get_solutionHTML(url):
    new_url = solutionurl + key
    new_solutionhtml = get_html(new_url)
    return new_solutionhtml
-#获得博客后缀
 def get_postfix(text):
    pattern = r"%22id%22%3A(\d+)"
    match = re.search(pattern, text)
@@ -86,7 +86,7 @@ def get_postfix(text):
       return match.group(1)
    return None
 
-#将题解网页转化为md格式
+#将题解网页转化为markdown格式
 def get_solutionMD(html):
    core = BeautifulSoup(html, "html.parser")
    md = str(core)
@@ -154,9 +154,11 @@ def on_select(event):
     print(f"Selected item: {selected_item}")
 
 window = Tk()
+window.title("mid")
 
 # 设置窗口大小
 window.geometry("500x300")
+window.configure(bg="yellow")
 
 # 创建筛选框
 selection_var1 = StringVar(window)
@@ -188,14 +190,14 @@ label2.grid(row=1, column=0, padx=20, pady=20, sticky='w')
 
 # 创建文本框
 text_output = Text(window, width=30, height=10)  # 设置初始宽度和高度
-text_output.grid(row=3, column=0, columnspan=2, padx=5, pady=5, sticky='w')
+text_output.grid(row=3, column=0, columnspan=2, padx=100, pady=5, sticky='w')
 
 
 
 # 创建按钮
-button = Button(window, text="爬取题目", command=fun)
+button = Button(window, text="爬", command=fun)
 
 # 设置按钮的位置
-button.grid(row=0, column=2, padx=10, pady=10, sticky='w')
+button.grid(row=1, column=2, padx=10, pady=10, sticky='w')
 
 window.mainloop()
